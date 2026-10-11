@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ===== SEO: title, description, canonical ===== -->
+<title>EMI Calculator Pakistan - Home, Car &amp; Personal Loan Monthly Installment (PKR)</title>
+<meta name="description" content="Free EMI calculator for Pakistan. Enter loan amount in PKR, profit rate and tenure to see your monthly installment, total interest and full payment schedule. Works for home, car and personal loans.">
+<!-- TODO: YOUR-DOMAIN.com ki jagah apni asli website likho -->
+<link rel="canonical" href="https://YOUR-DOMAIN.com/">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0b6b4f">
+
+<!-- Social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="EMI Calculator Pakistan - Monthly Loan Installment in PKR">
+<meta property="og:description" content="Calculate your home, car or personal loan EMI in PKR instantly, with a full payment schedule.">
+<meta property="og:url" content="https://YOUR-DOMAIN.com/">
+
+<!-- Structured data: Google ko page samjhane ke liye -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "EMI Calculator Pakistan",
+      "url": "https://YOUR-DOMAIN.com/",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "PKR" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is an EMI?",
+          "acceptedAnswer": { "@type": "Answer", "text": "EMI stands for Equated Monthly Installment. It is the fixed amount you pay every month to repay a loan, and it includes both a part of the principal and the interest or profit." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is EMI calculated?",
+          "acceptedAnswer": { "@type": "Answer", "text": "For a reducing balance loan, EMI = P x r x (1+r)^n / ((1+r)^n - 1), where P is the loan amount, r is the monthly rate (annual rate divided by 12 and by 100) and n is the number of monthly installments." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between flat rate and reducing balance rate?",
+          "acceptedAnswer": { "@type": "Answer", "text": "With a flat rate, interest is charged on the full original loan amount for the whole tenure. With a reducing balance rate, interest is charged only on the amount still owed, so the same quoted rate costs less. Always ask your bank which method it uses." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this calculator for Islamic financing?",
+          "acceptedAnswer": { "@type": "Answer", "text": "You can use it to estimate the monthly installment if you enter the profit rate quoted by your bank. Actual installments for products such as Diminishing Musharakah or Ijarah may be structured differently, so confirm the final figures with your bank." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the result exactly what my bank will charge?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. This tool gives an estimate. Banks may add processing fees, insurance, taxes and rate changes, and may round figures differently. Always check the official offer from your bank." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<!-- ===== CSS ===== -->
+<style>
+  :root{
+    --brand:#0b6b4f; --brand-dark:#084d39; --accent:#f2b705;
+    --bg:#f3f6f5; --card:#ffffff; --text:#16231f; --muted:#5b6b66; --line:#dbe4e1;
+    --principal:#0b6b4f; --interest:#f2b705;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:var(--brand)}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+
+  /* Header */
+  header{background:var(--brand);color:#fff}
+  .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0;flex-wrap:wrap;gap:10px}
+  .logo{font-weight:800;font-size:20px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+  .logo i{background:var(--accent);color:var(--brand-dark);width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-weight:900}
+  nav a{color:#d7efe6;text-decoration:none;margin-left:18px;font-size:15px}
+  nav a:hover{color:#fff}
+  .hero{padding:26px 0 62px}
+  .hero h1{font-size:clamp(26px,4.5vw,40px);line-height:1.2;max-width:760px}
+  .hero p{margin-top:10px;color:#d7efe6;max-width:680px}
+
+  /* Calculator card */
+  .calc-wrap{margin-top:-44px}
+  .calc{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(11,107,79,.12);padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  @media(max-width:820px){.calc{grid-template-columns:1fr}}
+  .presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  .presets button{border:1px solid var(--line);background:#f7faf9;padding:7px 12px;border-radius:999px;font-size:13px;cursor:pointer;color:var(--text)}
+  .presets button:hover{border-color:var(--brand);color:var(--brand)}
+  .field{margin-bottom:16px}
+  label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+  .row{display:flex;gap:8px}
+  input,select{width:100%;padding:11px 12px;font-size:16px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--text);outline:none}
+  input:focus,select:focus{border-color:var(--brand)}
+  .hint{font-size:12px;color:var(--muted);margin-top:4px}
+  input[type=range]{padding:0;border:none;accent-color:var(--brand);margin-top:8px}
+  .err{color:#b3261e;font-size:14px;min-height:20px}
+
+  /* Results */
+  .summary{background:linear-gradient(160deg,#0b6b4f,#084d39);color:#fff;border-radius:14px;padding:20px;text-align:center}
+  .summary small{opacity:.85;font-size:14px}
+  .emi{font-size:clamp(30px,6vw,42px);font-weight:800;margin:4px 0}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .stat{background:#f4f8f7;border:1px solid var(--line);border-radius:12px;padding:12px}
+  .stat span{display:block;font-size:12px;color:var(--muted)}
+  .stat b{font-size:16px}
+  .chart-row{display:flex;align-items:center;gap:18px;margin-top:16px}
+  .donut{width:118px;height:118px;border-radius:50%;flex:none;position:relative;background:conic-gradient(var(--principal) 0 70%,var(--interest) 70% 100%)}
+  .donut::after{content:"";position:absolute;inset:24px;background:#fff;border-radius:50%}
+  .legend{font-size:14px}
+  .legend div{display:flex;align-items:center;gap:8px;margin:4px 0}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+  /* Ad placeholders */
+  .ad{margin:22px 0;border:2px dashed var(--line);border-radius:12px;min-height:90px;display:flex;align-items:center;justify-content:center;color:#9aa8a3;font-size:13px;background:#fafcfb}
+
+  /* Schedule */
+  details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:20px}
+  summary{cursor:pointer;font-weight:700}
+  .tbl{overflow-x:auto;margin-top:12px;max-height:420px;overflow-y:auto}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:460px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
+  th{background:#f4f8f7;position:sticky;top:0}
+  th:first-child,td:first-child{text-align:left}
+
+  /* Content */
+  article{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-top:26px}
+  article h2{font-size:22px;margin:0 0 10px;color:var(--brand-dark)}
+  article h3{font-size:17px;margin:18px 0 6px}
+  article p,article li{color:#2b3a35}
+  article ul,article ol{padding-left:22px;margin:8px 0}
+  .formula{background:#f4f8f7;border-left:4px solid var(--brand);padding:12px 14px;border-radius:8px;font-family:Consolas,monospace;margin:10px 0;overflow-x:auto}
+  .faq details{margin-top:10px;box-shadow:none}
+  .note{background:#fff8e1;border:1px solid #f1dc9a;border-radius:10px;padding:12px 14px;font-size:14px;margin-top:14px}
+
+  footer{margin-top:40px;background:#0f1f1a;color:#b9c9c3;padding:26px 0;font-size:14px}
+  footer a{color:#d7efe6;margin-right:16px}
+</style>
+</head>
+
+<body>
+
+<!-- ===== Header ===== -->
+<header>
+  <div class="wrap">
+    <div class="bar">
+      <a class="logo" href="/"><i>%</i> EMI Calculator Pakistan</a>
+      <nav>
+        <a href="#calculator">Calculator</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+    <div class="hero">
+      <h1>EMI Calculator Pakistan: Find Your Monthly Loan Installment in PKR</h1>
+      <p>Free and instant. Works for home, car and personal loans. Enter your bank's rate and see your monthly installment, total interest and a full payment schedule.</p>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ===== Calculator ===== -->
+  <section class="calc-wrap" id="calculator" aria-label="EMI calculator">
+    <div class="calc">
+
+      <!-- Left: inputs -->
+      <div>
+        <div class="presets" aria-label="Quick examples">
+          <button type="button" data-p="5000000" data-y="20">Home loan</button>
+          <button type="button" data-p="2500000" data-y="5">Car loan</button>
+          <button type="button" data-p="500000" data-y="3">Personal loan</button>
+        </div>
+
+        <div class="field">
+          <label for="amount">Loan amount (PKR)</label>
+          <input id="amount" type="number" inputmode="numeric" min="1000" step="10000" value="1000000">
+          <input id="amountRange" type="range" min="50000" max="50000000" step="50000" value="1000000" aria-label="Loan amount slider">
+        </div>
+
+        <div class="field">
+          <label for="rate">Annual interest / profit rate (%)</label>
+          <input id="rate" type="number" inputmode="decimal" min="0" max="60" step="0.1" value="15">
+          <div class="hint">Enter the rate quoted by your bank. Rates change, so check your bank's latest offer.</div>
+        </div>
+
+        <div class="field">
+          <label for="tenure">Loan tenure</label>
+          <div class="row">
+            <input id="tenure" type="number" inputmode="numeric" min="1" step="1" value="5">
+            <select id="unit" aria-label="Tenure unit">
+              <option value="years" selected>Years</option>
+              <option value="months">Months</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="type">Rate type</label>
+          <select id="type">
+            <option value="reducing" selected>Reducing balance (standard)</option>
+            <option value="flat">Flat rate</option>
+          </select>
+          <div class="hint">Not sure? Ask your bank whether the rate is flat or on reducing balance.</div>
+        </div>
+
+        <div class="field">
+          <label for="fee">Processing fee (% of loan, optional)</label>
+          <input id="fee" type="number" inputmode="decimal" min="0" max="10" step="0.1" value="0">
+        </div>
+
+        <div class="err" id="err" role="alert"></div>
+      </div>
+
+      <!-- Right: results -->
+      <div>
+        <div class="summary">
+          <small>Your monthly installment (EMI)</small>
+          <div class="emi" id="emi">Rs 0</div>
+          <small id="months"></small>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><span>Total interest</span><b id="interest">Rs 0</b></div>
+          <div class="stat"><span>Total payment</span><b id="total">Rs 0</b></div>
+          <div class="stat"><span>Principal</span><b id="principal">Rs 0</b></div>
+          <div class="stat"><span>Processing fee</span><b id="feeAmt">Rs 0</b></div>
+        </div>
+
+        <div class="chart-row">
+          <div class="donut" id="donut" role="img" aria-label="Principal versus interest chart"></div>
+          <div class="legend">
+            <div><span class="dot" style="background:var(--principal)"></span> Principal <b id="pPct"></b></div>
+            <div><span class="dot" style="background:var(--interest)"></span> Interest <b id="iPct"></b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ad slot 1 (AdSense milne ke baad yahan code lagana) -->
+    <div class="ad">Advertisement</div>
+
+    <details>
+      <summary>View full payment schedule (month by month)</summary>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Month</th><th>Installment</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead>
+          <tbody id="schedule"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- ===== SEO content ===== -->
+  <article id="how">
+    <h2>How does an EMI calculator work?</h2>
+    <p>An EMI (Equated Monthly Installment) is the fixed amount you pay every month until your loan is fully repaid. Each installment has two parts: a portion that reduces the loan you borrowed (the principal) and a portion that pays the interest or profit charged by the bank. In the early months most of your installment goes to interest, and over time more of it goes to principal.</p>
+
+    <h3>The EMI formula (reducing balance)</h3>
+    <div class="formula">EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)</div>
+    <ul>
+      <li><b>P</b> = loan amount in PKR</li>
+      <li><b>r</b> = monthly rate = annual rate ÷ 12 ÷ 100</li>
+      <li><b>n</b> = number of monthly installments</li>
+    </ul>
+
+    <h3>Example</h3>
+    <p>For a loan of Rs 1,000,000 at 15% per year for 5 years (60 months), the monthly installment comes to roughly Rs 23,790, and you repay about Rs 427,000 as interest over the full period. Try the same numbers in the calculator above to see the schedule.</p>
+
+    <h3>Flat rate vs reducing balance</h3>
+    <p>With a <b>flat rate</b>, interest is calculated on the full original amount for the entire tenure. With a <b>reducing balance</b> rate, interest is calculated only on what you still owe. The same quoted number costs you less on a reducing balance, so compare offers carefully and ask which method your bank uses.</p>
+
+    <h3>Tips to lower your loan cost</h3>
+    <ul>
+      <li>Compare offers from several banks, including processing fees and insurance.</li>
+      <li>Choose the shortest tenure you can comfortably afford, since a longer tenure means more total interest.</li>
+      <li>Make a larger down payment to reduce the amount you borrow.</li>
+      <li>Ask your bank about early settlement or part-payment charges before you sign.</li>
+    </ul>
+
+    <div class="note"><b>Disclaimer:</b> This calculator gives an estimate for information only. It is not financial advice and is not connected to any bank. Actual installments depend on your bank's terms, fees, taxes, insurance and any rate changes. Please confirm exact figures with your bank.</div>
+  </article>
+
+  <div class="ad">Advertisement</div>
+
+  <article class="faq" id="faq">
+    <h2>Frequently asked questions</h2>
+    <details open><summary>What is an EMI?</summary><p>EMI stands for Equated Monthly Installment. It is the fixed amount you pay every month to repay a loan, and it includes both a part of the principal and the interest or profit.</p></details>
+    <details><summary>How is EMI calculated?</summary><p>For a reducing balance loan, EMI = P × r × (1+r)^n / ((1+r)^n − 1), where P is the loan amount, r is the monthly rate (annual rate ÷ 12 ÷ 100) and n is the number of monthly installments.</p></details>
+    <details><summary>What is the difference between flat rate and reducing balance rate?</summary><p>With a flat rate, interest is charged on the full original loan amount for the whole tenure. With a reducing balance rate, interest is charged only on the amount still owed, so the same quoted rate costs less. Always ask your bank which method it uses.</p></details>
+    <details><summary>Can I use this calculator for Islamic financing?</summary><p>You can use it to estimate the monthly installment if you enter the profit rate quoted by your bank. Actual installments for products such as Diminishing Musharakah or Ijarah may be structured differently, so confirm the final figures with your bank.</p></details>
+    <details><summary>Is the result exactly what my bank will charge?</summary><p>No. This tool gives an estimate. Banks may add processing fees, insurance, taxes and rate changes, and may round figures differently. Always check the official offer from your bank.</p></details>
+  </article>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><a href="privacy-policy.html">Privacy Policy</a><a href="#calculator">Calculator</a><a href="#faq">FAQ</a></p>
+    <p style="margin-top:10px">© <span id="year"></span> EMI Calculator Pakistan. For information only; not financial advice.</p>
+  </div>
+</footer>
+
+<!-- ===== JavaScript ===== -->
+<script>
+const $ = id => document.getElementById(id);
+const money = n => 'Rs ' + Math.round(n).toLocaleString('en-PK');
+
+function compute() {
+  const P = parseFloat($('amount').value);
+  const rate = parseFloat($('rate').value);
+  const t = parseFloat($('tenure').value);
+  const unit = $('unit').value;
+  const type = $('type').value;
+  const feePct = parseFloat($('fee').value) || 0;
+
+  const n = Math.round(unit === 'years' ? t * 12 : t);
+
+  // Validation
+  if (!(P > 0) || isNaN(rate) || rate < 0 || !(n > 0)) { return fail('Please enter a valid loan amount, rate and tenure.'); }
+  if (n > 480) { return fail('Tenure is too long. Please use 40 years (480 months) or less.'); }
+  $('err').textContent = '';
+
+  let emi, totalInterest;
+  const rows = [];
+
+  if (type === 'flat') {
+    totalInterest = P * (rate / 100) * (n / 12);
+    emi = (P + totalInterest) / n;
+    let bal = P;
+    for (let m = 1; m <= n; m++) {
+      const interest = totalInterest / n;
+      const principalPart = P / n;
+      bal -= principalPart;
+      rows.push([m, emi, principalPart, interest, Math.max(bal, 0)]);
+    }
+  } else {
+    const r = rate / 1200;
+    if (r === 0) { emi = P / n; }
+    else { const pow = Math.pow(1 + r, n); emi = P * r * pow / (pow - 1); }
+    let bal = P; totalInterest = 0;
+    for (let m = 1; m <= n; m++) {
+      const interest = bal * r;
+      let principalPart = emi - interest;
+      if (m === n) principalPart = bal;       // aakhri month par balance zero
+      bal -= principalPart;
+      totalInterest += interest;
+      rows.push([m, principalPart + interest, principalPart, interest, Math.max(bal, 0)]);
+    }
+  }
+
+  const total = P + totalInterest;
+  const feeAmt = P * feePct / 100;
+
+  $('emi').textContent = money(emi);
+  $('months').textContent = 'for ' + n + ' months';
+  $('interest').textContent = money(totalInterest);
+  $('total').textContent = money(total);
+  $('principal').textContent = money(P);
+  $('feeAmt').textContent = money(feeAmt);
+
+  const pPct = P / total * 100;
+  $('donut').style.background = `conic-gradient(var(--principal) 0 ${pPct}%, var(--interest) ${pPct}% 100%)`;
+  $('pPct').textContent = pPct.toFixed(0) + '%';
+  $('iPct').textContent = (100 - pPct).toFixed(0) + '%';
+
+  $('schedule').innerHTML = rows.map(r =>
+    `<tr><td>${r[0]}</td><td>${money(r[1])}</td><td>${money(r[2])}</td><td>${money(r[3])}</td><td>${money(r[4])}</td></tr>`
+  ).join('');
+}
+
+function fail(msg) {
+  $('err').textContent = msg;
+  ['emi','interest','total','principal','feeAmt'].forEach(id => $(id).textContent = 'Rs 0');
+  $('months').textContent = '';
+  $('schedule').innerHTML = '';
+}
+
+// Slider aur number box ko sync rakhna
+$('amountRange').addEventListener('input', e => { $('amount').value = e.target.value; compute(); });
+$('amount').addEventListener('input', e => { $('amountRange').value = e.target.value; compute(); });
+['rate','tenure','unit','type','fee'].forEach(id => $(id).addEventListener('input', compute));
+
+// Quick example buttons (rate ko nahi chhedte, wo user ka apna hai)
+document.querySelectorAll('.presets button').forEach(b => b.addEventListener('click', () => {
+  $('amount').value = b.dataset.p;
+  $('amountRange').value = b.dataset.p;
+  $('tenure').value = b.dataset.y;
+  $('unit').value = 'years';
+  compute();
+}));
+
+$('year').textContent = new Date().getFullYear();
+compute();
+</script>
+</body>
+</html>
